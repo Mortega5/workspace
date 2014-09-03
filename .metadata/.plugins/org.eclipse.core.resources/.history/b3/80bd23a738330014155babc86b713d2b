@@ -1,0 +1,21 @@
+package main
+
+import (
+)
+
+func Pic(dx, dy int) [][]uint8 {
+	slice1 := make([][]uint8, dx)
+	for i := 0; i < dx; i++ {
+		slice1[i] = make([]uint8, dy)
+	}
+	for x := 0; x < dx; x++ {
+
+		for y := 0; y < dy; y++ {
+			slice1[x][y] = uint8(x * y)
+		}
+	}
+	return slice1
+}
+
+func main() {
+}

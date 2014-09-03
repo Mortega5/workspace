@@ -1,0 +1,48 @@
+package main
+
+import (
+	"math/rand"
+	"producto"
+	//"time"
+)
+
+/// Funcion de productor: Crea elementos infinitamente
+func Productor(parada chan<- bool) {
+	canal := make(chan int)
+	for {
+		
+		go producto.Almacenar(canal)
+		canal <- rand.Intn(100)
+	}
+	parada <- true
+}
+// Funcion de consumidor: consume elementos infinitamente
+
+func Consumidor(parada chan<- bool) {
+	canal:=	make(chan int)
+	for {
+		go producto.Consumir(canal)
+		<-canal
+	}
+	parada <- true
+}
+
+func main() {
+
+	consumidores := 5
+	productores := 10
+	var almacen producto.Almacen
+	almacen.esperandoLleno=0
+	paradaC := make(chan bool)
+	paradaP := make(chan bool)
+
+	for i := 0; i < consumidores; i++ {
+		go Consumidor(paradaC)
+	}
+	for i := 0; i < productores; i++ {
+		go Productor(paradaP)
+	}
+	<- paradaC
+	<- paradaP
+
+}

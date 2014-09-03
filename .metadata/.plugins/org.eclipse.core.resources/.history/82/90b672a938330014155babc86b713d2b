@@ -1,0 +1,14 @@
+package src
+
+import (
+	"fmt"
+)
+
+func prueba(entrad int) (salida int) {
+	salida = entrada^2;
+	
+}
+
+func main(){
+	fmt.Print(prueba(5));
+}

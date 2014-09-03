@@ -1,0 +1,37 @@
+package main
+
+import (
+	"producto"
+	"math/rand"
+)
+func Productor(parada chan<- bool) {
+	/*for {
+	canal:=make(chan int)
+		producto.Almacenar(canal)
+		canal <- rand.Int()
+	}*/
+}
+func Consumidor(parada chan<- bool) {
+	/*for {
+		canal:make(chan int)
+		producto.Consumir(canal)
+		<- canal
+*/
+}
+func main() {
+	consumidores:=1
+	productores:=1
+	
+	paradaC:= make(chan bool)
+	paradaP:= make(chan bool)
+	
+	for i:=0; i<consumidores; i++ {
+		go Consumidor(paradaC)
+	}
+	for i:=0; i<productores; i++ {
+		go Consumidor(paradaP)
+	}
+	
+	
+}
+

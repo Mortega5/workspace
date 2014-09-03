@@ -1,0 +1,21 @@
+package main
+
+import (
+	"producto"
+	"fmt"
+	"math/rand"
+)
+func Productor() {
+	for {
+	canal:=make(chan int)
+		producto.Almacenar(canal)
+		canal <- Rand()
+	}
+}
+func main() {
+	//fmt.Println(len(almacen))
+	canal := make(chan int)
+
+	
+}
+

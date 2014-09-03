@@ -1,0 +1,45 @@
+package main
+
+import (
+	"math/rand"
+	"producto"
+	//"time"
+)
+var aux producto
+
+func Productor(parada chan<- bool) {
+	canal := make(chan int)
+	for {
+		
+		go aux.Almacenar(canal)
+		canal <- rand.Intn(100)
+	}
+	parada <- true
+}
+func Consumidor(parada chan<- bool) {
+	canal:=	make(chan int)
+	for {
+		go producto.Consumir(canal)
+		<-canal
+	}
+	parada <- true
+}
+
+func main() {
+
+	consumidores := 5
+	productores := 10
+
+	paradaC := make(chan bool)
+	paradaP := make(chan bool)
+
+	for i := 0; i < consumidores; i++ {
+		go Consumidor(paradaC)
+	}
+	for i := 0; i < productores; i++ {
+		go Productor(paradaP)
+	}
+	<- paradaC
+	<- paradaP
+
+}

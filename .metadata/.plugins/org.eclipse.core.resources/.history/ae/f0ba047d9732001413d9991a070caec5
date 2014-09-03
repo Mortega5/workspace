@@ -1,0 +1,48 @@
+package main
+
+import (
+	"fmt"
+//	"int"
+)
+
+/*type int struct {
+		
+	object int
+}*/
+
+var almacen = make([]int, 0,10)
+
+func almacenar(object int) {
+
+	/*if len(almacen) == cap(almacen) {
+		almacenAux := make([]int, 0, cap(almacen)*2)
+		almacenAux = almacen[0:len(almacen)+1]
+		
+		almacenAux[len(almacen)]=object
+		almacen=almacenAux
+	} else {*/
+		almacen=almacen[0:len(almacen)+1]
+		almacen[len(almacen)]=object
+	//}
+}
+
+func lista() {
+	
+	for x := range almacen {
+		fmt.Println(x)
+	}
+}
+
+func main(){
+	fmt.Println(len(almacen))
+	
+	
+	objeto:=1
+	almacenar(objeto)
+	/*almacenar(objeto)
+	
+	fmt.Println(almacen[0])
+	lista()
+	
+	*/
+}	

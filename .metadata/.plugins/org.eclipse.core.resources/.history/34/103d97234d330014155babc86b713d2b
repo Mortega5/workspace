@@ -1,0 +1,33 @@
+package main
+
+import (
+	"fmt"
+	"time"
+	"sync"
+)
+
+// Variable para la espera de las goroutines
+var espera sync.WaitGroup
+
+// Funcion que imprime el texto what  tras pasar el tiempo sec
+
+func IsReady (what string, sec time.Duration){
+	// Indico a la variable de espera que entro a una funcion
+	for {
+	time.Sleep(sec * time.Millisecond)
+	fmt.Println(what, "esta listo")
+	// indico a la variable de espera que terminó
+	}
+	espera.Done()
+}
+
+func main (){	
+	go IsReady("te",6)
+	go IsReady("cafe",2)
+	// Indico a la espera que hay dos hilos lanzados
+	espera.Add(2)
+	fmt.Println("Estoy esperando")
+	// Espero a hasta que se indiquen que terminaron todos los hilos
+	espera.Wait()
+ }
+

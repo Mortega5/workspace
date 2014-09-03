@@ -1,0 +1,107 @@
+package producto
+
+import (
+	"fmt"
+	"strconv"
+	"sync"
+)
+
+// Almacen de datos
+
+var ALMACENAR = "[ALMACENAR]"
+var CONSUMIR = "[CONSUMIR]"
+
+// Mutex de exclusion mutua
+
+type Almacen struct {
+	almacen []int
+	mutex sync.Mutex 
+	esperandoLleno int
+	esperandoVacio int
+	condicion1 sync.Cond
+	condicion2 sync.Cond 
+}
+
+// Contador de esperas
+
+
+// Conditions
+
+func (almacen Almacen) Almacenar(channel chan int) {
+	// Bloqueo de la exclusion mutua
+	almacen.mutex.Lock()
+
+	// C-Pre
+	if len(almacen.almacen) == cap(almacen.almacen) {
+		fmt.Println(ALMACENAR, "Espero a poder almacenar: tamaño almacen: ", len(almacen.almacen))
+		almacen.esperandoLleno++
+		almacen.condicion1.Wait()
+
+	}
+
+	elemento := <-channel
+	fmt.Println(ALMACENAR, "Voy a almacenar, elementos: ", len(almacen.almacen))
+
+	n := len(almacen.almacen)
+	// Seccion critica
+	almacen.almacen = almacen.almacen[0 : n+1]
+	almacen.almacen[n] = elemento
+
+	fmt.Println(ALMACENAR, "Almaceno el elemento: ", elemento)
+	// Indicamos que ya no estamos esperando
+
+	// Post
+	if almacen.esperandoVacio > 0 {
+		almacen.esperandoVacio--
+
+		almacen.condicion2.Signal()
+	}
+	// Liberacion del Mutex
+	almacen.mutex.Unlock()
+}
+
+func (almacen Almacen) Lista(channel chan<- string) {
+
+	var envio string
+	//fmt.Println(len(almacen))
+	almacen.mutex.Lock()
+	for i := 0; i < len(almacen.almacen); i++ {
+		envio += strconv.Itoa(almacen.almacen[i]) + " "
+	}
+	almacen.mutex.Unlock()
+	channel <- envio
+}
+
+func (almacen Almacen) Consumir(channel chan<- int) {
+	// Exclusion mutua
+	almacen.mutex.Lock()
+
+	// C-Pre
+	if len(almacen.almacen) == 0 {
+		fmt.Println(CONSUMIR, "Espero a poder consumir: tamaño almacen: ", len(almacen.almacen))
+		fmt.Println(CONSUMIR, "Gente esperando a vaciado: ", almacen.esperandoLleno)
+		almacen.esperandoVacio++
+		almacen.condicion2.Wait()
+
+	}
+	// Seccion critica
+
+	fmt.Println(CONSUMIR, "Elementos en el almacen al consumir: ", len(almacen.almacen))
+	n := len(almacen.almacen)-1
+	elemento := almacen.almacen[n]
+
+	almacen.almacen = almacen.almacen[0:n]
+
+	channel <- elemento
+	//fmt.Println(CONSUMIR, "Consumido el elemento: ", elemento)
+
+	// Desbloqueo en cadena
+	if almacen.esperandoLleno > 0 {
+		fmt.Println(CONSUMIR, "Liberando: Gente esperando a vaciado: ", almacen.esperandoLleno)
+		almacen.esperandoLleno--
+		fmt.Println(CONSUMIR, "Despierto a alguien que esta esperando")
+		almacen.condicion1.Signal()
+	}
+	// Liberacion mutex
+	almacen.mutex.Unlock()
+}

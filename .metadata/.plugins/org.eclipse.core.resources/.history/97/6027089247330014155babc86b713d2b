@@ -1,0 +1,18 @@
+package main
+
+import (
+	"producto"
+	"fmt"
+)
+func Productor() {
+	for {
+		producto.Almacenar(make(chan bool))
+	}
+}
+func main() {
+	//fmt.Println(len(almacen))
+	canal := make(chan int)
+
+	
+}
+

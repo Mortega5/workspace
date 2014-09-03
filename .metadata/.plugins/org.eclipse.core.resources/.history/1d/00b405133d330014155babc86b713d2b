@@ -1,0 +1,57 @@
+package main
+
+import (
+	"fmt"
+	//	"int"
+)
+
+/*type int struct {
+
+	object int
+}*/
+
+var almacen = make([]int, 0, 10)
+
+func almacenar(channel chan int) {
+
+	if len(almacen) == cap(almacen) {
+/*		almacenAux := make([]int, 0, cap(almacen)*2)
+		almacenAux = almacen[0 : len(almacen)+1]
+
+		almacenAux[len(almacen)] = <-channel
+		almacen = almacenAux*/
+	} else {
+
+		n := len(almacen)
+
+		almacen = almacen[0 : n+1]
+		almacen[n] = <-channel
+
+	}
+}
+
+func lista(channel chan<- string) {
+	var envio string
+	for i := 0; i < len(almacen); i++ {
+		envio+=almacen[i].String()
+	}
+
+}
+
+func main() {
+	//fmt.Println(len(almacen))
+
+	canal := make (chan int)
+	go almacenar(canal)
+	go almacenar(canal)
+	
+	canal <- 4
+	recepcion:=make(chan string)
+	
+	go lista(recepcion)
+	
+		
+	fmt.Println(<-recepcion)
+	
+
+}

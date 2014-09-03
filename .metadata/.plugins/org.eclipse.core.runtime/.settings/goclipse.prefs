@@ -1,0 +1,6 @@
+com.googlecode.goclipse.compiler.path=/usr/bin/go
+com.googlecode.goclipse.documentor.path=/usr/local/go/bin/godoc
+com.googlecode.goclipse.formatter.path=/usr/bin/gofmt
+com.googlecode.goclipse.gopath=/usr/bin
+com.googlecode.goclipse.goroot=/usr/lib/go
+eclipse.preferences.version=1

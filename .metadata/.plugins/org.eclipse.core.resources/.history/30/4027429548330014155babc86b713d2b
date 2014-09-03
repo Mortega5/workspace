@@ -1,0 +1,24 @@
+package main
+
+import (
+	"producto"
+	"math/rand"
+)
+func Productor() {
+	for {
+	canal:=make(chan int)
+		producto.Almacenar(canal)
+		canal <- rand.Int()
+	}
+}
+func Consumidor() {
+	for {
+	canal:make(chan int)
+		producto.Consumir(canal)
+
+}
+func main() {
+
+	
+}
+

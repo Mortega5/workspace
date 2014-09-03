@@ -1,0 +1,64 @@
+package main
+
+import (
+	"fmt"
+	//	"int"
+)
+
+/*type int struct {
+
+	object int
+}*/
+
+var almacen = make([]int, 0, 10)
+
+var esperandoLleno = 0;
+
+var almacenLleno = make(chan bool)
+var almacenVacio = make(chan bool)
+
+func almacenar(channel chan int) {
+	// Si esta lleno el almacen espero a que se envie una señal de que ya no esta lleno
+	if len(almacen) == cap(almacen) {
+		esperandoLleno++
+		<- almacenLleno 		
+	}	
+	// Añadimos el elemento al almacen
+	n := len(almacen)
+
+	almacen = almacen[0 : n+1]
+	elemento := <- channel
+	fmt.Println(elemento)
+	almacen[n] = elemento
+	//almacen[n] = <-channel
+	// Indicamos que ya no estamos esperando
+	esperandoLleno--
+	
+}
+
+func lista(channel chan<- string ) {
+
+	var envio string
+	for i := 0; i < len(almacen); i++ {
+		fmt.Println(almacen[i])
+		envio += string(almacen[i])
+	}
+	fmt.Println(envio)
+	channel <- envio
+}
+
+func main() {
+	//fmt.Println(len(almacen))
+
+	canal := make(chan int)
+	go almacenar(canal)
+	//go almacenar(canal)
+
+	canal <- 4
+	recepcion := make(chan string)
+
+	go lista(recepcion)
+
+	fmt.Println(<-recepcion)
+
+}

@@ -1,0 +1,56 @@
+[CONSUMIR] Espero a poder consumir: tamaño almacen:  0
+[CONSUMIR] Gente esperando a vaciado:  0
+[CONSUMIR] Espero a poder consumir: tamaño almacen:  0
+[CONSUMIR] Gente esperando a vaciado:  0
+[CONSUMIR] Espero a poder consumir: tamaño almacen:  0
+[CONSUMIR] Gente esperando a vaciado:  0
+[CONSUMIR] Espero a poder consumir: tamaño almacen:  0
+[CONSUMIR] Gente esperando a vaciado:  0
+[CONSUMIR] Espero a poder consumir: tamaño almacen:  0
+[CONSUMIR] Gente esperando a vaciado:  0
+[ALMACENAR] Voy a almacenar, elementos:  0
+[ALMACENAR] Voy a almacenar, elementos:  1
+[ALMACENAR] Voy a almacenar, elementos:  2
+[ALMACENAR] Voy a almacenar, elementos:  3
+[ALMACENAR] Voy a almacenar, elementos:  4
+[ALMACENAR] Voy a almacenar, elementos:  5
+[ALMACENAR] Voy a almacenar, elementos:  6
+[ALMACENAR] Voy a almacenar, elementos:  7
+[ALMACENAR] Voy a almacenar, elementos:  8
+[ALMACENAR] Voy a almacenar, elementos:  9
+[CONSUMIR] Elementos en el almacen al consumir:  10
+[CONSUMIR] Elementos en el almacen al consumir:  9
+[CONSUMIR] Elementos en el almacen al consumir:  8
+[CONSUMIR] Elementos en el almacen al consumir:  7
+[CONSUMIR] Elementos en el almacen al consumir:  6
+[ALMACENAR] Voy a almacenar, elementos:  5
+[ALMACENAR] Voy a almacenar, elementos:  6
+[ALMACENAR] Voy a almacenar, elementos:  7
+[ALMACENAR] Voy a almacenar, elementos:  8
+[ALMACENAR] Voy a almacenar, elementos:  9
+[ALMACENAR] Espero a poder almacenar: tamaño almacen:  10
+[ALMACENAR] Espero a poder almacenar: tamaño almacen:  10
+[ALMACENAR] Espero a poder almacenar: tamaño almacen:  10
+[ALMACENAR] Espero a poder almacenar: tamaño almacen:  10
+[ALMACENAR] Espero a poder almacenar: tamaño almacen:  10
+[CONSUMIR] Elementos en el almacen al consumir:  10
+[CONSUMIR] Liberando: Gente esperando a vaciado:  5
+[CONSUMIR] Despierto a alguien que esta esperando
+[CONSUMIR] Elementos en el almacen al consumir:  9
+[CONSUMIR] Liberando: Gente esperando a vaciado:  4
+[CONSUMIR] Despierto a alguien que esta esperando
+[CONSUMIR] Elementos en el almacen al consumir:  8
+[CONSUMIR] Liberando: Gente esperando a vaciado:  3
+[CONSUMIR] Despierto a alguien que esta esperando
+[CONSUMIR] Elementos en el almacen al consumir:  7
+[CONSUMIR] Liberando: Gente esperando a vaciado:  2
+[CONSUMIR] Despierto a alguien que esta esperando
+[CONSUMIR] Elementos en el almacen al consumir:  6
+[CONSUMIR] Liberando: Gente esperando a vaciado:  1
+[CONSUMIR] Despierto a alguien que esta esperando
+[ALMACENAR] Voy a almacenar, elementos:  5
+[ALMACENAR] Voy a almacenar, elementos:  6
+[ALMACENAR] Voy a almacenar, elementos:  7
+[ALMACENAR] Voy a almacenar, elementos:  8
+[ALMACENAR] Voy a almacenar, elementos:  9
+[ALMACENAR] Voy a almacenar, elementos:  10

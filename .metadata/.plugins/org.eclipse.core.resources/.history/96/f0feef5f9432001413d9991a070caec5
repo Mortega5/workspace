@@ -1,0 +1,9 @@
+package producto
+
+import (
+	
+)
+
+	type Producto struct {}
+	
+	

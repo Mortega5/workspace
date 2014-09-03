@@ -1,0 +1,83 @@
+package producto
+
+import (
+	"fmt"
+	"strconv"
+	"sync"
+)
+
+/*type int struct {
+
+	object int
+}*/
+
+var almacen = make([]int, 0, 10)
+var mutex = &sync.Mutex{}
+
+var esperandoLleno = 0
+var esperandoVacio = 0
+var condition = &sync.NewCond(mutex)
+
+
+var almacenLleno = condition.
+var almacenVacio = make(chan bool)
+
+func Almacenar(channel chan int) {
+	// Si esta lleno el almacen espero a que se envie una señal de que ya no esta lleno
+	if len(almacen) == cap(almacen) {
+		fmt.Println("Espero a poder almacenar: tamaño almacen: ", len(almacen))
+		esperandoLleno++
+		<-almacenLleno
+	}
+
+	elemento := <-channel
+
+	fmt.Println("Elementos en el almacen Almacenar: ", len(almacen))
+
+	n := len(almacen)
+	
+	almacen = almacen[0 : n+1]
+	almacen[n] = elemento
+
+	fmt.Println("Almacenado el elemento: ", elemento)
+	// Indicamos que ya no estamos esperando
+	esperandoLleno--
+	
+	// Liberacion para consumir
+	if esperandoVacio != 0 {
+
+		almacenVacio <- true
+	}
+}
+
+func Lista(channel chan<- string) {
+
+	var envio string
+	//fmt.Println(len(almacen))
+	for i := 0; i < len(almacen); i++ {
+		envio += strconv.Itoa(almacen[i]) + " "
+	}
+	channel <- envio
+}
+func Consumir(channel chan<- int) {
+	if len(almacen) == 0 {
+		fmt.Println("Espero a poder consumir: tamaño almacen: ", len(almacen))
+		esperandoVacio++
+		<- almacenVacio
+	}
+	
+	esperandoVacio--
+
+	fmt.Println("Elementos en el almacen al consumir: ", len(almacen))
+	elemento := almacen[len(almacen)-1]
+
+	almacen = almacen[0 : len(almacen)-1]
+	
+	channel <- elemento
+	fmt.Println("Consumido el elemento: ", elemento)
+
+	if esperandoLleno != 0 {
+		fmt.Println("Despierto a alguien que esta esperando")
+		almacenLleno <- true
+	}
+}

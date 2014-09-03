@@ -1,0 +1,32 @@
+package main
+
+import (
+	"producto"
+	"fmt"
+)
+
+func main() {
+	//fmt.Println(len(almacen))
+	producto = new producto()
+	canal := make(chan int)
+
+	go producto.Almacenar(canal)
+
+	go producto.Almacenar(canal)
+
+	canal <- 4
+	
+	recepcion := make(chan string)
+	go producto.Lista(recepcion)
+	
+	canal <- 6
+	
+	
+	
+	
+	//fmt.Print(len(almacen))
+
+	fmt.Println(<-recepcion)
+
+}
+

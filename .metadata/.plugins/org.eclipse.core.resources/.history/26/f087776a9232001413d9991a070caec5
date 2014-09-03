@@ -1,0 +1,9 @@
+package src
+
+import (
+	
+)
+
+	type Producto struct {}
+	
+	
